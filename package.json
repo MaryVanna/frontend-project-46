@@ -1,0 +1,26 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "The second project for Hexlet",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaryVanna/frontend-project-46.git"
+  },
+  "author": "MaryVanna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaryVanna/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/MaryVanna/frontend-project-46#readme",
+  "dependencies": {
+    "commander": "^10.0.1"
+  }
+}
