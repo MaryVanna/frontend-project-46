@@ -21,16 +21,3 @@ const getDiffs = (data1, data2) => {
 };
 
 export default getDiffs;
-
-/*if (data1[key] === data2[key]) {
-  acc.push(`    ${key}: ${data1[key]}`);
-} else if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key) && data1[key] !== data2[key]) {
-  const firstProp = `  - ${key}: ${data1[key]}`;
-  const secondProp = `  + ${key}: ${data2[key]}`;
-  acc.push(firstProp);
-  acc.push(secondProp);
-} else if (Object.hasOwn(data1, key)) {
-  acc.push(`  - ${key}: ${data1[key]}`);
-} else if (Object.hasOwn(data2, key)) {
-  acc.push(`  + ${key}: ${data2[key]}`);
-}*/
