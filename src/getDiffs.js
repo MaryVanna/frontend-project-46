@@ -6,23 +6,31 @@ const getDiffs = (data1, data2) => {
     return '{}';
   }
   const result = keys.reduce((acc, key) => {
-    if (data1[key] === data2[key]) {
-      acc.push(`    ${key}: ${data1[key]}`);
-      return acc;
-    } if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key) && data1[key] !== data2[key]) {
-      const firstProp = `  - ${key}: ${data1[key]}`;
-      const secondProp = `  + ${key}: ${data2[key]}`;
-      acc.push(firstProp);
-      acc.push(secondProp);
-      return acc;
-    } if (Object.hasOwn(data1, key)) {
+    if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
+      const equalKeys = `    ${key}: ${data1[key]}`;
+      const notEqualKeys = [`  - ${key}: ${data1[key]}`, `  + ${key}: ${data2[key]}`];
+      acc.push(data1[key] === data2[key] ? equalKeys : notEqualKeys);
+    } else if (Object.hasOwn(data1, key)) {
       acc.push(`  - ${key}: ${data1[key]}`);
-    } if (Object.hasOwn(data2, key)) {
+    } else {
       acc.push(`  + ${key}: ${data2[key]}`);
     }
     return acc;
   }, []);
-  return `{\n${result.join('\n')}\n}`;
+  return `{\n${result.flat().join('\n')}\n}`;
 };
 
 export default getDiffs;
+
+/*if (data1[key] === data2[key]) {
+  acc.push(`    ${key}: ${data1[key]}`);
+} else if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key) && data1[key] !== data2[key]) {
+  const firstProp = `  - ${key}: ${data1[key]}`;
+  const secondProp = `  + ${key}: ${data2[key]}`;
+  acc.push(firstProp);
+  acc.push(secondProp);
+} else if (Object.hasOwn(data1, key)) {
+  acc.push(`  - ${key}: ${data1[key]}`);
+} else if (Object.hasOwn(data2, key)) {
+  acc.push(`  + ${key}: ${data2[key]}`);
+}*/
