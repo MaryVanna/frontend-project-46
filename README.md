@@ -1,8 +1,8 @@
 # Вычислитель отличий
 
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/MaryVanna/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/MaryVanna/frontend-project-46/actions)
-[![Test and lint-check](https://github.com/MaryVanna/frontend-project-46/workflows/test-and-lint-check.yml/badge.svg)](https://github.com/MaryVanna/frontend-project-46/actions)
+[![Actions Status](https://fasthub.cc/MaryVanna/frontend-project-46/workflows/hexlet-check/badge.svg)](https://fasthub.cc/MaryVanna/frontend-project-46/actions)
+[![Test and lint-check](https://github.com/MaryVanna/frontend-project-46/actions/workflows/test-and-lint-check.yml/badge.svg)](https://fasthub.cc/MaryVanna/frontend-project-46/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8d6630f575b59a5ec92c/maintainability)](https://codeclimate.com/github/MaryVanna/frontend-project-46/maintainability)
 
 ## Описание
