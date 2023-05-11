@@ -2,9 +2,6 @@ import _ from 'lodash';
 
 const getDiffs = (data1, data2) => {
   const keys = _.union(Object.keys(data1), Object.keys(data2)).sort();
-  if (keys.length === 0) {
-    return '{}';
-  }
   const result = keys.reduce((acc, key) => {
     if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
       const equalKeys = `    ${key}: ${data1[key]}`;
