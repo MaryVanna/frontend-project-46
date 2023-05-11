@@ -12,5 +12,7 @@ jobs:
               run: make install
             - name: tests
               run: make test
+            - name: coverage
+              run: make test-coverage
             - name: lint
               run: make lint
