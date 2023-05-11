@@ -1,6 +1,6 @@
 import genDiff from '../index.js';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname } from 'node:path';
 import fs from 'node:fs';
 import path from 'node:path';
 
