@@ -10,8 +10,24 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-test('genDiff test', () => {
-  const actual = genDiff('./__fixtures__/file1.json', './__fixtures__/file2.json');
+const cases = [
+  {
+    extension: 'json',
+    dataPath1: getFixturePath('file1.json'),
+    dataPath2: getFixturePath('file2.json'),
+  },
+  {
+    extension: 'yaml',
+    dataPath1: getFixturePath('file1.yaml'),
+    dataPath2: getFixturePath('file2.yaml'),
+  },
+];
+
+describe.each(cases)('Testing gendiff', ({ extension, dataPath1, dataPath2 }) => {
   const expected = readFile('expectedPlain.txt');
-  expect(actual).toEqual(expected);
+
+  test(`Testing ${extension} extension`, () => {
+    const actual = genDiff(dataPath1, dataPath2);
+    expect(actual).toEqual(expected);
+  });
 });
