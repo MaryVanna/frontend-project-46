@@ -12,22 +12,30 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 const cases = [
   {
-    extension: 'json',
-    dataPath1: getFixturePath('file1.json'),
-    dataPath2: getFixturePath('file2.json'),
-  },
-  {
-    extension: 'yaml',
-    dataPath1: getFixturePath('file1.yaml'),
-    dataPath2: getFixturePath('file2.yaml'),
+    format: 'stylish',
+    j2j: [getFixturePath('file1.json'), getFixturePath('file2.json')],
+    y2y: [getFixturePath('file1.yaml'), getFixturePath('file2.yaml')],
+    j2y: [getFixturePath('file1.json'), getFixturePath('file2.yaml')],
   },
 ];
 
-describe.each(cases)('Testing gendiff', ({ extension, dataPath1, dataPath2 }) => {
-  const expected = readFile('expectedPlain.txt');
+describe.each(cases)('Testing gendiff', ({
+  format, j2j, y2y, j2y,
+}) => {
+  const expected = readFile('stylish.txt');
 
-  test(`Testing ${extension} extension`, () => {
-    const actual = genDiff(dataPath1, dataPath2);
+  test(`Testing ${format} format, json-json`, () => {
+    const actual = genDiff(...j2j, format);
+    expect(actual).toEqual(expected);
+  });
+
+  test(`Testing ${format} format, yaml-yaml`, () => {
+    const actual = genDiff(...y2y, format);
+    expect(actual).toEqual(expected);
+  });
+
+  test(`Testing ${format} format, json-yaml`, () => {
+    const actual = genDiff(...j2y, format);
     expect(actual).toEqual(expected);
   });
 });

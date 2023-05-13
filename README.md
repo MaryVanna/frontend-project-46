@@ -19,5 +19,8 @@
 `sudo npm link`
 
 ## Пример использования
-
+### Сравнение плоски JSON файлов
 [![asciicast](https://asciinema.org/a/7HdvTFiYjfjnToWpMZEci6ew4.svg)](https://asciinema.org/a/7HdvTFiYjfjnToWpMZEci6ew4)
+
+### Сравнение плоских YAML файлов
+[![asciicast](https://asciinema.org/a/Jn3cRUsIlebA5adXUPYMUM7Yv.svg)](https://asciinema.org/a/Jn3cRUsIlebA5adXUPYMUM7Yv)
