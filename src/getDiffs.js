@@ -18,24 +18,25 @@ const getChildren = (obj) => {
 const getDiffs = (data1, data2) => {
   const keys = _.union(Object.keys(data1), Object.keys(data2)).sort();
   return keys.map((key) => {
-    if (_.isObject(data1[key]) && _.isObject(data2[key])) {
+    const [value1, value2] = [data1[key], data2[key]];
+    if (_.isObject(value1) && _.isObject(value2)) {
       return {
-        key, children: getDiffs(data1[key], data2[key]), nasted: true, changes: 'none',
+        key, children: getDiffs(value1, value2), nasted: true, changes: 'none',
       };
     }
     const [unchanged, added, deleted] = [
       {
-        key, value: data1[key], children: getChildren(data1[key]), changes: 'none', nasted: _.isObject(data1[key]),
+        key, value: value1, children: getChildren(value1), changes: 'none', nasted: _.isObject(value1),
       },
       {
-        key, value: data2[key], children: getChildren(data2[key]), changes: 'added', nasted: _.isObject(data2[key]),
+        key, value: value2, children: getChildren(value2), changes: 'added', nasted: _.isObject(value2),
       },
       {
-        key, value: data1[key], children: getChildren(data1[key]), changes: 'deleted', nasted: _.isObject(data1[key]),
+        key, value: value1, children: getChildren(value1), changes: 'deleted', nasted: _.isObject(value1),
       },
     ];
     if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
-      return _.isEqual(data1[key], data2[key]) ? unchanged : [deleted, added];
+      return _.isEqual(value1, value2) ? unchanged : [deleted, added];
     }
     return Object.hasOwn(data1, key) ? deleted : added;
   });

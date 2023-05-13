@@ -10,7 +10,7 @@ const genDiff = (path1, path2, format) => {
     case 'stylish':
       return stylish(diffs);
     default:
-      throw new Error('Этот формат мне не известен ¯\\_(ツ)_/¯');
+      throw new Error('Этот формат мне не знаком ¯\_(ツ)_/¯');
   }
 };
 
