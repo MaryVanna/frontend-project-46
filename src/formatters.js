@@ -1,21 +1,44 @@
+const spacing = '    ';
+const changeSymbols = {
+  none: '    ',
+  deleted: '  - ',
+  added: '  + ',
+};
+
 const stylish = (data) => {
-  const spacing = '  ';
-  const changeSymbols = {
-    none: '  ',
-    deleted: '- ',
-    added: '+ ',
-  };
   const iter = (arr, depth) => {
+    const currentSpasing = spacing.repeat(depth);
     const strings = arr
-      .map(({ key, value, changes }) => {
-        if (typeof value === 'object' && value !== null) {
-          return `${spacing.repeat(depth + 1)}${changeSymbols[changes]}${key}: ${iter(value, depth + 1)}`;
+      .flat()
+      .map(({
+        key, value, changes, children, nasted,
+      }) => {
+        if (nasted) {
+          switch (changes) {
+            case 'none':
+              return `${currentSpasing}${changeSymbols.none}${key}: ${iter(children, depth + 1)}`;
+            case 'deleted':
+              return `${currentSpasing}${changeSymbols.deleted}${key}: ${iter(children, depth + 1)}`;
+            case 'added':
+              return `${currentSpasing}${changeSymbols.added}${key}: ${iter(children, depth + 1)}`;
+            default:
+              throw new Error('Упс, что-то пошло не так [✖‿✖]');
+          }
         }
-        return `${spacing.repeat(depth + 1)}${changeSymbols[changes]}${key}: ${value}`;
-      })
-      .join('\n');
-    return `{\n${strings}\n${spacing.repeat(depth)}}`;
+        switch (changes) {
+          case 'none':
+            return `${currentSpasing}${changeSymbols.none}${key}: ${value}`;
+          case 'deleted':
+            return `${currentSpasing}${changeSymbols.deleted}${key}: ${value}`;
+          case 'added':
+            return `${currentSpasing}${changeSymbols.added}${key}: ${value}`;
+          default:
+            throw new Error('Упс, что-то пошло не так [✖‿✖]');
+        }
+      });
+    return `{\n${strings.join('\n')}\n${currentSpasing}}`;
   };
+
   return iter(data, 0);
 };
 
