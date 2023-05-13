@@ -23,28 +23,21 @@ const getDiffs = (data1, data2) => {
         key, children: getDiffs(data1[key], data2[key]), nasted: true, changes: 'none',
       };
     }
-    if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
-      const equalValues = {
+    const [unchanged, added, deleted] = [
+      {
         key, value: data1[key], children: getChildren(data1[key]), changes: 'none', nasted: _.isObject(data1[key]),
-      };
-      const notEqualValues = [
-        {
-          key, value: data1[key], children: getChildren(data1[key]), changes: 'deleted', nasted: _.isObject(data1[key]),
-        },
-        {
-          key, value: data2[key], children: getChildren(data2[key]), changes: 'added', nasted: _.isObject(data2[key]),
-        },
-      ];
-      return _.isEqual(data1[key], data2[key]) ? equalValues : notEqualValues;
-    }
-    if (Object.hasOwn(data1, key)) {
-      return {
+      },
+      {
+        key, value: data2[key], children: getChildren(data2[key]), changes: 'added', nasted: _.isObject(data2[key]),
+      },
+      {
         key, value: data1[key], children: getChildren(data1[key]), changes: 'deleted', nasted: _.isObject(data1[key]),
-      };
+      },
+    ];
+    if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
+      return _.isEqual(data1[key], data2[key]) ? unchanged : [deleted, added];
     }
-    return {
-      key, value: data2[key], children: getChildren(data2[key]), changes: 'added', nasted: _.isObject(data2[key]),
-    };
+    return Object.hasOwn(data1, key) ? deleted : added;
   });
 };
 

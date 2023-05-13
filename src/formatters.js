@@ -13,25 +13,13 @@ const stylish = (data) => {
       .map(({
         key, value, changes, children, nasted,
       }) => {
-        if (nasted) {
-          switch (changes) {
-            case 'none':
-              return `${currentSpasing}${changeSymbols.none}${key}: ${iter(children, depth + 1)}`;
-            case 'deleted':
-              return `${currentSpasing}${changeSymbols.deleted}${key}: ${iter(children, depth + 1)}`;
-            case 'added':
-              return `${currentSpasing}${changeSymbols.added}${key}: ${iter(children, depth + 1)}`;
-            default:
-              throw new Error('Упс, что-то пошло не так [✖‿✖]');
-          }
-        }
         switch (changes) {
           case 'none':
-            return `${currentSpasing}${changeSymbols.none}${key}: ${value}`;
+            return `${currentSpasing}${changeSymbols.none}${key}: ${nasted ? iter(children, depth + 1) : value}`;
           case 'deleted':
-            return `${currentSpasing}${changeSymbols.deleted}${key}: ${value}`;
+            return `${currentSpasing}${changeSymbols.deleted}${key}: ${nasted ? iter(children, depth + 1) : value}`;
           case 'added':
-            return `${currentSpasing}${changeSymbols.added}${key}: ${value}`;
+            return `${currentSpasing}${changeSymbols.added}${key}: ${nasted ? iter(children, depth + 1) : value}`;
           default:
             throw new Error('Упс, что-то пошло не так [✖‿✖]');
         }
