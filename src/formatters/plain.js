@@ -26,7 +26,7 @@ const plain = (data) => {
       const currentPath = depth > 0 ? `${path}.${key}` : key;
       const valueString = _.isString(value) ? `'${value}'` : value;
       switch (changes) {
-        case 'none':
+        case 'changed':
           return iter(children, currentPath, 1);
         case 'deleted':
           return `Property '${currentPath}' was removed`;

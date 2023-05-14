@@ -8,7 +8,7 @@ const getChildren = (obj) => {
   return keys.map((key) => {
     if (_.isObject(obj[key])) {
       return {
-        key, children: getChildren(obj[key]), nasted: true, changes: 'changed',
+        key, children: getChildren(obj[key]), nasted: true, changes: 'none',
       };
     }
     return {
@@ -24,7 +24,7 @@ const getDiffs = (data1, data2) => {
     const [value1, value2] = [data1[key], data2[key]];
     if (_.isObject(value1) && _.isObject(value2)) {
       return {
-        key, children: getDiffs(value1, value2), nasted: true, changes: 'none',
+        key, children: getDiffs(value1, value2), nasted: true, changes: 'changed',
       };
     }
     const [unchanged, added, deleted] = [
