@@ -10,6 +10,7 @@ const parse = (filepath) => {
   switch (fileExtension) {
     case 'json':
       return JSON.parse(fileContent);
+    case 'yml':
     case 'yaml':
       return yaml.load(fileContent);
     default:
