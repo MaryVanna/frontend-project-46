@@ -17,6 +17,8 @@ const stylish = (data) => {
         switch (changes) {
           case 'none':
             return `${currentSpasing}${changeSymbols.none}${string}`;
+          case 'changed':
+            return `${currentSpasing}${changeSymbols.none}${string}`;
           case 'deleted':
             return `${currentSpasing}${changeSymbols.deleted}${string}`;
           case 'added':

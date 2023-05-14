@@ -19,6 +19,7 @@ const filePathes = {
 const cases = [
   { format: 'stylish', ...filePathes },
   { format: 'plain', ...filePathes },
+  { format: 'json', ...filePathes },
 ];
 
 describe.each(cases)('Testing gendiff', ({

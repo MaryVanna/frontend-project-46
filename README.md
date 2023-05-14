@@ -19,4 +19,4 @@
 `sudo npm link`
 
 ## Пример использования
-[![asciicast](https://asciinema.org/a/8MgruADupFok76INOO98mMilv.svg)](https://asciinema.org/a/8MgruADupFok76INOO98mMilv)
+[![asciicast](https://asciinema.org/a/L3A4sI2ZvgfynTD5PtjjWOMEd.svg)](https://asciinema.org/a/L3A4sI2ZvgfynTD5PtjjWOMEd)

@@ -8,7 +8,7 @@ const getChildren = (obj) => {
   return keys.map((key) => {
     if (_.isObject(obj[key])) {
       return {
-        key, children: getChildren(obj[key]), nasted: true, changes: 'none',
+        key, children: getChildren(obj[key]), nasted: true, changes: 'changed',
       };
     }
     return {

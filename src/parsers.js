@@ -13,7 +13,7 @@ const parse = (filepath) => {
     case 'yaml':
       return yaml.load(fileContent);
     default:
-      throw new Error('Это расширение мне не известно ¯\\_(ツ)_/¯');
+      throw new Error('Это расширение мне не известно ¯\\_(ツ)_//¯');
   }
 };
 

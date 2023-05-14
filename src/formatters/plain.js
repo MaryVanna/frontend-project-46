@@ -3,11 +3,8 @@ import _ from 'lodash';
 const plain = (data) => {
   const iter = (keys, path, depth) => keys
     .filter((keyDescription) => {
-      if (_.isArray(keyDescription)) {
-        return true;
-      }
       const { changes, nasted } = keyDescription;
-      return (changes !== 'none' || nasted);
+      return _.isArray(keyDescription) ? true : (changes !== 'none' || nasted);
     })
     .map((keyDescription) => {
       const complex = '[complex value]';

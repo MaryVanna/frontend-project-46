@@ -7,6 +7,8 @@ const formatter = (diffs, format) => {
       return stylish(diffs);
     case 'plain':
       return plain(diffs);
+    case 'json':
+      return JSON.stringify(diffs);
     default:
       throw new Error('Этот формат мне не знаком ¯\\_(ツ)_//¯');
   }
