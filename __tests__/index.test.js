@@ -17,16 +17,15 @@ const filePathes = {
 };
 
 const cases = [
-  { format: 'stylish', ...filePathes },
-  { format: 'plain', ...filePathes },
-  { format: 'json', ...filePathes },
+  { format: undefined, ...filePathes, expected: readFile('stylish.txt') },
+  { format: 'stylish', ...filePathes, expected: readFile('stylish.txt') },
+  { format: 'plain', ...filePathes, expected: readFile('plain.txt') },
+  { format: 'json', ...filePathes, expected: readFile('json.txt') },
 ];
 
 describe.each(cases)('Testing gendiff', ({
-  format, j2j, y2y, j2y,
+  format, j2j, y2y, j2y, expected,
 }) => {
-  const expected = readFile(`${format}.txt`);
-
   test(`Testing ${format} format, json-json`, () => {
     const actual = genDiff(...j2j, format);
     expect(actual).toEqual(expected);

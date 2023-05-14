@@ -3,6 +3,8 @@ import plain from './plain.js';
 
 const formatter = (diffs, format) => {
   switch (format) {
+    case undefined:
+      return stylish(diffs);
     case 'stylish':
       return stylish(diffs);
     case 'plain':
