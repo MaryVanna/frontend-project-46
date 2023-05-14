@@ -18,8 +18,9 @@ const getChildren = (obj) => {
 };
 
 const getDiffs = (data1, data2) => {
-  const keys = _.union(Object.keys(data1), Object.keys(data2)).sort();
-  return keys.map((key) => {
+  const keys = _.union(Object.keys(data1), Object.keys(data2));
+  const sortedKeys = _.sortBy(keys);
+  return sortedKeys.map((key) => {
     const [value1, value2] = [data1[key], data2[key]];
     if (_.isObject(value1) && _.isObject(value2)) {
       return {

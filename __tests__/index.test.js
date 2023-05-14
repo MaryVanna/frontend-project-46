@@ -10,17 +10,17 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const filePathes = {
+const filePaths = {
   j2j: [getFixturePath('file1.json'), getFixturePath('file2.json')],
   y2y: [getFixturePath('file1.yaml'), getFixturePath('file2.yaml')],
   j2y: [getFixturePath('file1.json'), getFixturePath('file2.yaml')],
 };
 
 const cases = [
-  { format: undefined, ...filePathes, expected: readFile('stylish.txt') },
-  { format: 'stylish', ...filePathes, expected: readFile('stylish.txt') },
-  { format: 'plain', ...filePathes, expected: readFile('plain.txt') },
-  { format: 'json', ...filePathes, expected: readFile('json.txt') },
+  { format: undefined, ...filePaths, expected: readFile('stylish.txt') },
+  { format: 'stylish', ...filePaths, expected: readFile('stylish.txt') },
+  { format: 'plain', ...filePaths, expected: readFile('plain.txt') },
+  { format: 'json', ...filePaths, expected: readFile('json.txt') },
 ];
 
 describe.each(cases)('Testing gendiff', ({
