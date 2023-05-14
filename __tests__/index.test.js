@@ -10,19 +10,21 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
+const filePathes = {
+  j2j: [getFixturePath('file1.json'), getFixturePath('file2.json')],
+  y2y: [getFixturePath('file1.yaml'), getFixturePath('file2.yaml')],
+  j2y: [getFixturePath('file1.json'), getFixturePath('file2.yaml')],
+};
+
 const cases = [
-  {
-    format: 'stylish',
-    j2j: [getFixturePath('file1.json'), getFixturePath('file2.json')],
-    y2y: [getFixturePath('file1.yaml'), getFixturePath('file2.yaml')],
-    j2y: [getFixturePath('file1.json'), getFixturePath('file2.yaml')],
-  },
+  { format: 'stylish', ...filePathes },
+  { format: 'plain', ...filePathes },
 ];
 
 describe.each(cases)('Testing gendiff', ({
   format, j2j, y2y, j2y,
 }) => {
-  const expected = readFile('stylish.txt');
+  const expected = readFile(`${format}.txt`);
 
   test(`Testing ${format} format, json-json`, () => {
     const actual = genDiff(...j2j, format);

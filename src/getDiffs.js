@@ -11,7 +11,9 @@ const getChildren = (obj) => {
         key, children: getChildren(obj[key]), nasted: true, changes: 'none',
       };
     }
-    return { key, value: obj[key], changes: 'none' };
+    return {
+      key, value: obj[key], changes: 'none', nasted: false,
+    };
   });
 };
 

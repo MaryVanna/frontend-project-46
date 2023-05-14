@@ -6,9 +6,9 @@ const changeSymbols = {
 };
 
 const stylish = (data) => {
-  const iter = (arr, depth) => {
+  const iter = (keys, depth) => {
     const currentSpasing = spacing.repeat(depth);
-    const strings = arr
+    const strings = keys
       .flat()
       .map(({
         key, value, changes, children, nasted,
