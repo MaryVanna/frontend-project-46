@@ -10,7 +10,7 @@ const formatter = (diffs, format) => {
     case 'json':
       return JSON.stringify(diffs);
     default:
-      throw new Error(`Формат ${format} мне не знаком ¯\\_(ツ)_//¯`);
+      throw new Error(`Формат ${format} мне не знаком ¯\\_(ツ)_/¯`);
   }
 };
 

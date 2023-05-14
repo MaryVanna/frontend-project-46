@@ -11,10 +11,11 @@ const parse = (filepath) => {
     case 'json':
       return JSON.parse(fileContent);
     case 'yml':
+      return yaml.load(fileContent);
     case 'yaml':
       return yaml.load(fileContent);
     default:
-      throw new Error(`Расширение '.${fileExtension}' мне не известно ¯\\_(ツ)_//¯`);
+      throw new Error(`Расширение '.${fileExtension}' мне не известно ¯\\_(ツ)_/¯`);
   }
 };
 
