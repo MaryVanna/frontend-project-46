@@ -17,7 +17,6 @@ const filePaths = {
 };
 
 const cases = [
-  { format: undefined, ...filePaths, expected: readFile('stylish.txt') },
   { format: 'stylish', ...filePaths, expected: readFile('stylish.txt') },
   { format: 'plain', ...filePaths, expected: readFile('plain.txt') },
   { format: 'json', ...filePaths, expected: readFile('json.txt') },

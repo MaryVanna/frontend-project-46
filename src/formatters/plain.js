@@ -1,37 +1,28 @@
 import _ from 'lodash';
 
+const valueToString = (value) => {
+  const formattedValue = _.isString(value) ? `'${value}'` : value;
+  return `${_.isObject(value) ? '[complex value]' : formattedValue}`;
+};
+
 const plain = (data) => {
   const iter = (keys, path, depth) => keys
-    .filter((keyDescription) => {
-      const { changes, nasted } = keyDescription;
-      return _.isArray(keyDescription) ? true : (changes !== 'none' || nasted);
-    })
-    .map((keyDescription) => {
-      const complex = '[complex value]';
-      if (_.isArray(keyDescription)) {
-        const [
-          { key, nasted: delNasted, value: delValue },
-          { nasted: addNasted, value: addValue },
-        ] = keyDescription;
-        const [delString, addString] = [
-          _.isString(delValue) ? `'${delValue}'` : delValue,
-          _.isString(addValue) ? `'${addValue}'` : addValue,
-        ];
-        const currentPath = depth > 0 ? `${path}.${key}` : key;
-        return `Property '${currentPath}' was updated. From ${delNasted ? complex : delString} to ${addNasted ? complex : addString}`;
-      }
-      const {
-        key, value, changes, children, nasted,
-      } = keyDescription;
+    .filter(({ status }) => status !== 'unchanged')
+    .map(({
+      key, value, newValue, children, status,
+    }) => {
       const currentPath = depth > 0 ? `${path}.${key}` : key;
-      const valueString = _.isString(value) ? `'${value}'` : value;
-      switch (changes) {
-        case 'changed':
-          return iter(children, currentPath, 1);
-        case 'deleted':
-          return `Property '${currentPath}' was removed`;
+      const stringTemplate = `Property '${currentPath}' was ${status}`;
+      switch (status) {
+        case 'removed':
+          return `${stringTemplate}`;
         case 'added':
-          return `Property '${currentPath}' was added with value: ${nasted ? complex : valueString}`;
+          return `${stringTemplate} with value: ${valueToString(value)}`;
+        case 'updated':
+          if (_.isObject(value) && _.isObject(newValue)) {
+            return iter(children, currentPath, 1);
+          }
+          return `${stringTemplate}. From ${valueToString(value)} to ${valueToString(newValue)}`;
         default:
           throw new Error('Упс, что-то пошло не так [✖‿✖]');
       }

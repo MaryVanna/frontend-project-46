@@ -1,21 +1,14 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import process from 'node:process';
 import yaml from 'js-yaml';
 
-const parse = (filepath) => {
-  const normalizedPath = path.resolve(process.cwd(), filepath);
-  const fileContent = fs.readFileSync(normalizedPath, 'utf-8');
-  const fileExtension = path.extname(filepath).slice(1);
-  switch (fileExtension) {
+const parse = (data, extension) => {
+  switch (extension) {
     case 'json':
-      return JSON.parse(fileContent);
+      return JSON.parse(data);
     case 'yml':
-      return yaml.load(fileContent);
     case 'yaml':
-      return yaml.load(fileContent);
+      return yaml.load(data);
     default:
-      throw new Error(`Расширение '.${fileExtension}' мне не известно ¯\\_(ツ)_/¯`);
+      throw new Error(`Расширение '.${extension}' мне не знакомо ¯\\_(ツ)_/¯`);
   }
 };
 
