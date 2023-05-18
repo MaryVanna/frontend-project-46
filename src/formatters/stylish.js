@@ -3,8 +3,7 @@ import _ from 'lodash';
 const stylish = (data) => {
   const iter = (keys, depth) => {
     const currentSpasing = '    '.repeat(depth);
-    const strings = keys
-      .map(({
+    const strings = keys.map(({
         key, value, newValue, children, status,
       }) => {
         const valueToString = (val) => `${key}: ${_.isObject(val) ? iter(children, depth + 1) : val}`;
