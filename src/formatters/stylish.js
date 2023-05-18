@@ -7,20 +7,21 @@ const stylish = (data) => {
       .map(({
         key, value, newValue, children, status,
       }) => {
-        const valueString = `${key}: ${_.isObject(value) ? iter(children, depth + 1) : value}`;
-        const newValueString = `${key}: ${_.isObject(newValue) ? iter(children, depth + 1) : newValue}`;
         switch (status) {
           case 'unchanged':
-            return `${currentSpasing}    ${valueString}`;
+            return `${currentSpasing}    ${key}: ${_.isObject(value) ? iter(children, depth + 1) : value}`;
           case 'added':
-            return `${currentSpasing}  + ${valueString}`;
+            return `${currentSpasing}  + ${key}: ${_.isObject(value) ? iter(children, depth + 1) : value}`;
           case 'removed':
-            return `${currentSpasing}  - ${valueString}`;
+            return `${currentSpasing}  - ${key}: ${_.isObject(value) ? iter(children, depth + 1) : value}`;
           case 'updated':
             if (_.isObject(value) && _.isObject(newValue)) {
-              return `${currentSpasing}    ${valueString}`;
+              return `${currentSpasing}    ${key}: ${_.isObject(value) ? iter(children, depth + 1) : value}`;
             }
-            return [`${currentSpasing}  - ${valueString}`, `${currentSpasing}  + ${newValueString}`];
+            return [
+              `${currentSpasing}  - ${key}: ${_.isObject(value) ? iter(children, depth + 1) : value}`,
+              `${currentSpasing}  + ${key}: ${_.isObject(newValue) ? iter(children, depth + 1) : newValue}`,
+            ];
           default:
             throw new Error('Упс, что-то пошло не так [✖‿✖]');
         }
