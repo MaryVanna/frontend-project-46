@@ -34,10 +34,8 @@ const stylish = (data) => {
           default:
             throw new Error('Упс, что-то пошло не так [✖‿✖]');
         }
-      })
-      .flat()
-      .join('\n');
-    return `{\n${strings}\n${currentSpasing}}`;
+      });
+    return `{\n${strings.flat().join('\n')}\n${currentSpasing}}`;
   };
 
   return iter(data, 0);

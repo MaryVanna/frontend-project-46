@@ -18,33 +18,31 @@ const getDiffs = (data1, data2) => {
   const sortedKeys = _.sortBy(keys);
   return sortedKeys.map((key) => {
     const [value, newValue] = [data1[key], data2[key]];
-    const keyDescription = { key, value };
 
     if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
-      keyDescription.status = _.isEqual(value, newValue) ? 'unchanged' : 'updated';
-    } else {
-      keyDescription.status = Object.hasOwn(data1, key) ? 'removed' : 'added';
-    }
-
-    if (keyDescription.status === 'updated') {
-      keyDescription.newValue = newValue;
-      if (_.isObject(value) && _.isObject(newValue)) {
-        keyDescription.children = getDiffs(value, newValue);
-      } else {
-        keyDescription.children = _.isObject(value) ? getChildren(value) : getChildren(newValue);
+      if (_.isEqual(value, newValue)) {
+        return {
+          key, value, children: getChildren(value), status: 'unchanged',
+        };
       }
+      if (_.isObject(value) && _.isObject(newValue)) {
+        return {
+          key, value, newValue, children: getDiffs(value, newValue), status: 'updated',
+        };
+      }
+      return {
+        key, value, newValue, children: _.isObject(value) ? getChildren(value) : getChildren(newValue), status: 'updated',
+      };
     }
 
-    if (keyDescription.status === 'removed') {
-      keyDescription.children = getChildren(value);
+    if (Object.hasOwn(data1, key)) {
+      return {
+        key, value, children: getChildren(value), status: 'removed',
+      };
     }
-
-    if (keyDescription.status === 'added') {
-      keyDescription.value = newValue;
-      keyDescription.children = getChildren(newValue);
-    }
-
-    return keyDescription;
+    return {
+      key, value: newValue, children: getChildren(newValue), status: 'added',
+    };
   });
 };
 
