@@ -1,15 +1,8 @@
 import _ from 'lodash';
 
-const spacing = '    ';
-const changeSymbols = {
-  none: '    ',
-  del: '  - ',
-  add: '  + ',
-};
-
 const stylish = (data) => {
   const iter = (keys, depth) => {
-    const currentSpasing = spacing.repeat(depth);
+    const currentSpasing = '    '.repeat(depth);
     const strings = keys
       .map(({
         key, value, newValue, children, status,
@@ -18,19 +11,16 @@ const stylish = (data) => {
         const newValueString = `${key}: ${_.isObject(newValue) ? iter(children, depth + 1) : newValue}`;
         switch (status) {
           case 'unchanged':
-            return `${currentSpasing}${changeSymbols.none}${valueString}`;
+            return `${currentSpasing}    ${valueString}`;
           case 'added':
-            return `${currentSpasing}${changeSymbols.add}${valueString}`;
+            return `${currentSpasing}  + ${valueString}`;
           case 'removed':
-            return `${currentSpasing}${changeSymbols.del}${valueString}`;
+            return `${currentSpasing}  - ${valueString}`;
           case 'updated':
             if (_.isObject(value) && _.isObject(newValue)) {
-              return `${currentSpasing}${changeSymbols.none}${valueString}`;
+              return `${currentSpasing}    ${valueString}`;
             }
-            return [
-              `${currentSpasing}${changeSymbols.del}${valueString}`,
-              `${currentSpasing}${changeSymbols.add}${newValueString}`,
-            ];
+            return [`${currentSpasing}  - ${valueString}`, `${currentSpasing}  + ${newValueString}`];
           default:
             throw new Error('Упс, что-то пошло не так [✖‿✖]');
         }
