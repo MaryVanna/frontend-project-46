@@ -12,17 +12,15 @@ const plain = (data) => {
       key, value, newValue, children, status,
     }) => {
       const currentPath = depth > 0 ? `${path}.${key}` : key;
-      const stringTemplate = `Property '${currentPath}' was ${status}`;
       switch (status) {
         case 'removed':
-          return `${stringTemplate}`;
+          return `Property '${currentPath}' was removed`;
         case 'added':
-          return `${stringTemplate} with value: ${valueToString(value)}`;
+          return `Property '${currentPath}' was added with value: ${valueToString(value)}`;
         case 'updated':
-          if (_.isObject(value) && _.isObject(newValue)) {
-            return iter(children, currentPath, 1);
-          }
-          return `${stringTemplate}. From ${valueToString(value)} to ${valueToString(newValue)}`;
+          return `Property '${currentPath}' was updated. From ${valueToString(value)} to ${valueToString(newValue)}`;
+        case 'nasted':
+          return iter(children, currentPath, 1);
         default:
           throw new Error('Упс, что-то пошло не так [✖‿✖]');
       }

@@ -20,3 +20,4 @@
 
 ## Пример использования
 [![asciicast](https://asciinema.org/a/L3A4sI2ZvgfynTD5PtjjWOMEd.svg)](https://asciinema.org/a/L3A4sI2ZvgfynTD5PtjjWOMEd)
+[![asciicast](https://asciinema.org/a/QV7XBSY85nINhUFI9ArpLbK6P.svg)](https://asciinema.org/a/QV7XBSY85nINhUFI9ArpLbK6P)
