@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import getDiffs from './getDiffs.js';
-import parse from './parsers.js';
-import formatter from './formatters/index.js';
+import getDiffs from './src/getDiffs.js';
+import parse from './src/parsers.js';
+import formatter from './src/formatters/index.js';
 
 const getNormalizedPath = (filepath) => path.resolve(process.cwd(), filepath);
 const getFileContent = (normalizedPath) => fs.readFileSync(normalizedPath, 'utf-8');
