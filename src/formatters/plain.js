@@ -19,7 +19,7 @@ const plain = (data) => {
           return `Property '${currentPath}' was added with value: ${valueToString(value)}`;
         case 'updated':
           return `Property '${currentPath}' was updated. From ${valueToString(value)} to ${valueToString(newValue)}`;
-        case 'nasted':
+        case 'nested':
           return iter(children, currentPath, 1);
         default:
           throw new Error('Упс, что-то пошло не так [✖‿✖]');

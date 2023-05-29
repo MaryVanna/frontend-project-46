@@ -1,42 +1,42 @@
 import _ from 'lodash';
 
-const spasing = '    ';
+const spacing = '    ';
 
 const valueToString = (currentValue, depth) => {
   if (!_.isObject(currentValue)) {
     return `${currentValue}`;
   }
   const entries = Object.entries(currentValue);
-  const currentSpasing = spasing.repeat(depth);
-  const strings = entries.map(([key, value]) => `${currentSpasing}    ${key}: ${valueToString(value, depth + 1)}`);
-  return `{\n${strings.join('\n')}\n${currentSpasing}}`;
+  const currentSpacing = spacing.repeat(depth);
+  const strings = entries.map(([key, value]) => `${currentSpacing}    ${key}: ${valueToString(value, depth + 1)}`);
+  return `{\n${strings.join('\n')}\n${currentSpacing}}`;
 };
 
 const stylish = (data) => {
   const iter = (keys, depth) => {
-    const currentSpasing = spasing.repeat(depth);
-    const strings = keys.map(({
+    const currentSpacing = spacing.repeat(depth);
+    const strings = keys.flatMap(({
       key, value, newValue, children, status,
     }) => {
       switch (status) {
         case 'unchanged':
-          return `${currentSpasing}    ${key}: ${valueToString(value, depth + 1)}`;
+          return `${currentSpacing}    ${key}: ${valueToString(value, depth + 1)}`;
         case 'added':
-          return `${currentSpasing}  + ${key}: ${valueToString(value, depth + 1)}`;
+          return `${currentSpacing}  + ${key}: ${valueToString(value, depth + 1)}`;
         case 'removed':
-          return `${currentSpasing}  - ${key}: ${valueToString(value, depth + 1)}`;
+          return `${currentSpacing}  - ${key}: ${valueToString(value, depth + 1)}`;
         case 'updated':
           return [
-            `${currentSpasing}  - ${key}: ${valueToString(value, depth + 1)}`,
-            `${currentSpasing}  + ${key}: ${valueToString(newValue, depth + 1)}`,
+            `${currentSpacing}  - ${key}: ${valueToString(value, depth + 1)}`,
+            `${currentSpacing}  + ${key}: ${valueToString(newValue, depth + 1)}`,
           ];
-        case 'nasted':
-          return `${currentSpasing}    ${key}: ${iter(children, depth + 1)}`;
+        case 'nested':
+          return `${currentSpacing}    ${key}: ${iter(children, depth + 1)}`;
         default:
           throw new Error('Упс, что-то пошло не так [✖‿✖]');
       }
     });
-    return `{\n${strings.flat().join('\n')}\n${currentSpasing}}`;
+    return `{\n${strings.join('\n')}\n${currentSpacing}}`;
   };
 
   return iter(data, 0);

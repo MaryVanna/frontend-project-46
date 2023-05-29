@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import getDiffs from './src/getDiffs.js';
-import parse from './src/parsers.js';
-import formatter from './src/formatters/index.js';
+import getDiff from './getDiff.js';
+import parse from './parsers.js';
+import formatter from './formatters/index.js';
 
 const getNormalizedPath = (filepath) => path.resolve(process.cwd(), filepath);
 const getFileContent = (normalizedPath) => fs.readFileSync(normalizedPath, 'utf-8');
@@ -17,8 +17,8 @@ const getParsedContent = (filepath) => {
 const genDiff = (path1, path2, format = 'stylish') => {
   const data1 = getParsedContent(path1);
   const data2 = getParsedContent(path2);
-  const diffs = getDiffs(data1, data2);
-  return formatter(diffs, format);
+  const diff = getDiff(data1, data2);
+  return formatter(diff, format);
 };
 
 export default genDiff;

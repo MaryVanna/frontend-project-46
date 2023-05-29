@@ -1,12 +1,12 @@
 import _ from 'lodash';
 
-const getDiffs = (data1, data2) => {
+const getDiff = (data1, data2) => {
   const keys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
   return keys.map((key) => {
     const [value, newValue] = [data1[key], data2[key]];
 
     if (_.isObject(value) && _.isObject(newValue)) {
-      return { key, children: getDiffs(value, newValue), status: 'nasted' };
+      return { key, children: getDiff(value, newValue), status: 'nested' };
     }
 
     if (!Object.hasOwn(data1, key)) {
@@ -27,4 +27,4 @@ const getDiffs = (data1, data2) => {
   });
 };
 
-export default getDiffs;
+export default getDiff;
